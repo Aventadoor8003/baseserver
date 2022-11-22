@@ -16,12 +16,12 @@ BaseServer::~BaseServer() {}
 
 bool BaseServer::SetupListenFd() {
     listen_fd_ = socket(PF_INET, SOCK_STREAM, 0);
-    cout << "Created listen fd " << listen_fd_ << endl;
+    //cout << "Created listen fd " << listen_fd_ << endl;
     if(listen_fd_ == -1) {
         fprintf(stderr, "Failed to open a listen socket.\n");
         return false;
     }
-    cout << "Opened listen fd." << endl;
+    //cout << "Opened listen fd." << endl;
 
     return true;
 }
@@ -32,11 +32,11 @@ bool BaseServer::SetupListenAddr() {
     server_inet_.sin_port = htons(4711);
 
     if(bind(listen_fd_, (sockaddr*)&server_inet_, sizeof(server_inet_)) < 0) {
-        cout << "Failed to bind addr";
+        //cout << "Failed to bind addr";
         return false;
     }
 
-    cout << "Successfully bind on 0.0.0.0:4711" << endl;
+    //cout << "Successfully bind on 0.0.0.0:4711" << endl;
     return true;
 }
 
@@ -50,11 +50,11 @@ int BaseServer::Run() {
         socklen_t client_addr_len = sizeof(client_addr);
         int comm_fd = accept(listen_fd_, (sockaddr*) &client_addr, &client_addr_len);
         if(comm_fd == -1) {
-            cout << "Failed to accept" << endl;
-            cout << "Error: " << strerror(errno) << endl;
+            //cout << "Failed to accept" << endl;
+            //cout << "Error: " << strerror(errno) << endl;
             return 1;
         }
-        cout << "New client connects on " << comm_fd << endl;
+        //cout << "New client connects on " << comm_fd << endl;
         AddFd(comm_fd);
 
         thread new_thread([&] {Worker(&comm_fd); });
@@ -91,7 +91,7 @@ bool BaseServer::RemoveFd(int fd) {
     }  
 
     if(idx == -1) {
-        cout << "File Descriptor " << fd << " does not exist" << endl;
+        //cout << "File Descriptor " << fd << " does not exist" << endl;
         return false;
     }
 
