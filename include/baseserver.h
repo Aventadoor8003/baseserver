@@ -2,10 +2,10 @@
 
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#include <unistd.h>
+
 #include <mutex>
 #include <thread>
-
-#include "unistd.h"
 
 #define MAX_CLIENTS 101
 #define BUFF_SIZE 1024
@@ -84,7 +84,8 @@ protected:
     /// @return if succesfully deleted
     bool RemoveFd(int fd);
 
-    /// @brief Read a whole sentence from socket. Will trim <CR> and <LF> at the end
+    /// @brief Read a whole sentence from socket. 
+    // Attention: !!!!!!This function will trim <CR> and <LF> at the end!!!!!!
     /// @param conn_fd file descriptor to connection
     /// @param buffer buffer to save message
     /// @return if successfully read content, return true. If failed return false

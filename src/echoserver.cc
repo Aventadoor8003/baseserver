@@ -7,16 +7,13 @@ using namespace std;
 
 EchoServer::EchoServer() : BaseServer() {}
 
-EchoServer::~EchoServer() {
-    //TODO: Delete this
-    vflag_ = 1;
-}
+EchoServer::~EchoServer() { }
 
 int EchoServer::ParseConfig(int argc, char** argv) {
     return 0;
 }
 
-//Default address: 0.0.0.0:8000
+//Default address: 0.0.0.0:4711
 void EchoServer::Worker(void* param) {
     int comm_fd = *(int*)param;
     cout << "Echo worker starts" << endl;
